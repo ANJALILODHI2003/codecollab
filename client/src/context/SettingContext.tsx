@@ -52,25 +52,19 @@ function SettingContextProvider({ children }: { children: ReactNode }) {
         storedSettings.fontFamily !== undefined
             ? storedSettings.fontFamily
             : defaultSettings.fontFamily
-    const storedShowGitHubCorner =
-        storedSettings.showGitHubCorner !== undefined
-            ? storedSettings.showGitHubCorner
-            : defaultSettings.showGitHubCorner
+   
 
     const [theme, setTheme] = useState<string>(storedTheme)
     const [language, setLanguage] = useState<string>(storedLanguage)
     const [fontSize, setFontSize] = useState<number>(storedFontSize)
     const [fontFamily, setFontFamily] = useState<string>(storedFontFamily)
-    const [showGitHubCorner, setShowGitHubCorner] = useState<boolean>(
-        storedShowGitHubCorner,
-    )
+    
 
     const resetSettings = () => {
         setTheme(defaultSettings.theme)
         setLanguage(defaultSettings.language)
         setFontSize(defaultSettings.fontSize)
         setFontFamily(defaultSettings.fontFamily)
-        setShowGitHubCorner(defaultSettings.showGitHubCorner)
     }
 
     useEffect(() => {
@@ -80,10 +74,9 @@ function SettingContextProvider({ children }: { children: ReactNode }) {
             language,
             fontSize,
             fontFamily,
-            showGitHubCorner,
         }
         localStorage.setItem("settings", JSON.stringify(updatedSettings))
-    }, [theme, language, fontSize, fontFamily, showGitHubCorner])
+    }, [theme, language, fontSize, fontFamily])
 
     return (
         <SettingContext.Provider
