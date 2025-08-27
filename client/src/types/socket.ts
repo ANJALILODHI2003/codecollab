@@ -24,8 +24,7 @@ enum SocketEvent {
     TYPING_PAUSE = "typing-pause",
     USERNAME_EXISTS = "username-exists",
     REQUEST_DRAWING = "request-drawing",
-    SYNC_DRAWING = "sync-drawing",
-    DRAWING_UPDATE = "drawing-update",
+
 }
 
 interface SocketContext {

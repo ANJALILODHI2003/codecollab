@@ -28,37 +28,30 @@ const defaultSettings: Settings = {
     language: "Javascript",
     fontSize: 16,
     fontFamily: "Space Mono",
-    showGitHubCorner: true,
 }
 
 function SettingContextProvider({ children }: { children: ReactNode }) {
     const { getItem } = useLocalStorage()
-    const storedSettings: Partial<Settings> = JSON.parse(
-        getItem("settings") || "{}",
-    )
-    const storedTheme =
-        storedSettings.theme !== undefined
-            ? storedSettings.theme
-            : defaultSettings.theme
-    const storedLanguage =
-        storedSettings.language !== undefined
-            ? storedSettings.language
-            : defaultSettings.language
-    const storedFontSize =
-        storedSettings.fontSize !== undefined
-            ? storedSettings.fontSize
-            : defaultSettings.fontSize
-    const storedFontFamily =
-        storedSettings.fontFamily !== undefined
-            ? storedSettings.fontFamily
-            : defaultSettings.fontFamily
-   
 
-    const [theme, setTheme] = useState<string>(storedTheme)
-    const [language, setLanguage] = useState<string>(storedLanguage)
-    const [fontSize, setFontSize] = useState<number>(storedFontSize)
-    const [fontFamily, setFontFamily] = useState<string>(storedFontFamily)
-    
+    let storedSettings: Partial<Settings> = {}
+    try {
+        storedSettings = JSON.parse(getItem("settings") || "{}")
+    } catch {
+        storedSettings = {}
+    }
+
+    const [theme, setTheme] = useState<string>(
+        storedSettings.theme ?? defaultSettings.theme,
+    )
+    const [language, setLanguage] = useState<string>(
+        storedSettings.language ?? defaultSettings.language,
+    )
+    const [fontSize, setFontSize] = useState<number>(
+        storedSettings.fontSize ?? defaultSettings.fontSize,
+    )
+    const [fontFamily, setFontFamily] = useState<string>(
+        storedSettings.fontFamily ?? defaultSettings.fontFamily,
+    )
 
     const resetSettings = () => {
         setTheme(defaultSettings.theme)
@@ -68,7 +61,6 @@ function SettingContextProvider({ children }: { children: ReactNode }) {
     }
 
     useEffect(() => {
-        // Save settings to local storage whenever they change
         const updatedSettings = {
             theme,
             language,
