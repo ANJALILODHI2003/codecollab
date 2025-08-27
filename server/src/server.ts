@@ -246,7 +246,7 @@ io.on("connection", (socket) => {
 	})
 })
 
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 3000
 
 app.get("/", (req: Request, res: Response) => {
 	// Send the index.html file

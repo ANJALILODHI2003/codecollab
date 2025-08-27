@@ -1,7 +1,6 @@
 import {
     ACTIVITY_STATE,
     AppContext as AppContextType,
-    DrawingData,
 } from "@/types/app"
 import { RemoteUser, USER_STATUS, User } from "@/types/user"
 import { ReactNode, createContext, useContext, useState } from "react"
@@ -28,7 +27,6 @@ function AppContextProvider({ children }: { children: ReactNode }) {
     const [activityState, setActivityState] = useState<ACTIVITY_STATE>(
         ACTIVITY_STATE.CODING,
     )
-    const [drawingData, setDrawingData] = useState<DrawingData>(null)
 
     return (
         <AppContext.Provider
@@ -41,8 +39,6 @@ function AppContextProvider({ children }: { children: ReactNode }) {
                 setStatus,
                 activityState,
                 setActivityState,
-                drawingData,
-                setDrawingData,
             }}
         >
             {children}

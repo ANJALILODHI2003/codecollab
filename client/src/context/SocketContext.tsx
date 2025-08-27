@@ -1,8 +1,7 @@
-import { DrawingData } from "@/types/app"
+
 import {
     SocketContext as SocketContextType,
     SocketEvent,
-    SocketId,
 } from "@/types/socket"
 import { RemoteUser, USER_STATUS, User } from "@/types/user"
 import {
@@ -35,8 +34,6 @@ const SocketProvider = ({ children }: { children: ReactNode }) => {
         setUsers,
         setStatus,
         setCurrentUser,
-        drawingData,
-        setDrawingData,
     } = useAppContext()
     const socket: Socket = useMemo(
         () =>
@@ -87,19 +84,9 @@ const SocketProvider = ({ children }: { children: ReactNode }) => {
         [setUsers, users],
     )
 
-    const handleRequestDrawing = useCallback(
-        ({ socketId }: { socketId: SocketId }) => {
-            socket.emit(SocketEvent.SYNC_DRAWING, { socketId, drawingData })
-        },
-        [drawingData, socket],
-    )
+   
 
-    const handleDrawingSync = useCallback(
-        ({ drawingData }: { drawingData: DrawingData }) => {
-            setDrawingData(drawingData)
-        },
-        [setDrawingData],
-    )
+   
 
     useEffect(() => {
         socket.on("connect_error", handleError)
@@ -107,8 +94,6 @@ const SocketProvider = ({ children }: { children: ReactNode }) => {
         socket.on(SocketEvent.USERNAME_EXISTS, handleUsernameExist)
         socket.on(SocketEvent.JOIN_ACCEPTED, handleJoiningAccept)
         socket.on(SocketEvent.USER_DISCONNECTED, handleUserLeft)
-        socket.on(SocketEvent.REQUEST_DRAWING, handleRequestDrawing)
-        socket.on(SocketEvent.SYNC_DRAWING, handleDrawingSync)
 
         return () => {
             socket.off("connect_error")
@@ -120,10 +105,8 @@ const SocketProvider = ({ children }: { children: ReactNode }) => {
             socket.off(SocketEvent.SYNC_DRAWING)
         }
     }, [
-        handleDrawingSync,
         handleError,
         handleJoiningAccept,
-        handleRequestDrawing,
         handleUserLeft,
         handleUsernameExist,
         setUsers,

@@ -40,7 +40,7 @@ export const useFileSystem = (): FileContextType => {
 
 function FileContextProvider({ children }: { children: ReactNode }) {
     const { socket } = useSocket()
-    const { setUsers, drawingData } = useAppContext()
+    const { setUsers} = useAppContext()
 
     const [fileStructure, setFileStructure] =
         useState<FileSystemItem>(initialFileStructure)
@@ -643,13 +643,13 @@ function FileContextProvider({ children }: { children: ReactNode }) {
             })
 
             socket.emit(SocketEvent.SYNC_DRAWING, {
-                drawingData,
+
                 socketId: user.socketId,
             })
 
             setUsers((prev) => [...prev, user])
         },
-        [activeFile, drawingData, fileStructure, openFiles, setUsers, socket],
+        [activeFile, fileStructure, openFiles, setUsers, socket],
     )
 
     const handleFileStructureSync = useCallback(

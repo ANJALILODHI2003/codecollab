@@ -96,8 +96,6 @@ function SettingContextProvider({ children }: { children: ReactNode }) {
                 setFontSize,
                 fontFamily,
                 setFontFamily,
-                showGitHubCorner,
-                setShowGitHubCorner,
                 resetSettings,
             }}
         >
