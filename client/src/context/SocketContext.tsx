@@ -101,8 +101,8 @@ const SocketProvider = ({ children }: { children: ReactNode }) => {
             socket.off(SocketEvent.USERNAME_EXISTS)
             socket.off(SocketEvent.JOIN_ACCEPTED)
             socket.off(SocketEvent.USER_DISCONNECTED)
-            socket.off(SocketEvent.REQUEST_DRAWING)
-            socket.off(SocketEvent.SYNC_DRAWING)
+
+
         }
     }, [
         handleError,

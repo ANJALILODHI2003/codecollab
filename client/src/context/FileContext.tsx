@@ -642,10 +642,6 @@ function FileContextProvider({ children }: { children: ReactNode }) {
                 socketId: user.socketId,
             })
 
-            socket.emit(SocketEvent.SYNC_DRAWING, {
-
-                socketId: user.socketId,
-            })
 
             setUsers((prev) => [...prev, user])
         },
